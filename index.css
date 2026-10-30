@@ -1,0 +1,26 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root, :root[data-theme='light'] {
+    --paper: 237 240 244; --surface: 255 255 255; --ink: 16 27 51; --muted: 91 101 119; --line: 214 220 230;
+    --gain: 14 138 106; --loss: 207 63 63; --amber: 183 121 31; --signal: 79 70 229;
+  }
+  :root[data-theme='dark'] {
+    --paper: 9 14 25; --surface: 17 24 39; --ink: 232 236 245; --muted: 148 160 181; --line: 38 48 68;
+    --gain: 52 211 153; --loss: 248 113 113; --amber: 245 185 80; --signal: 129 140 248;
+    color-scheme: dark;
+  }
+  body { @apply bg-paper text-ink font-sans antialiased transition-colors duration-200; font-variant-numeric: tabular-nums; }
+  :focus-visible { outline: 2px solid rgb(var(--signal)); outline-offset: 2px; border-radius: 4px; }
+}
+@layer components {
+  .btn { @apply inline-flex items-center gap-2 rounded-lg border border-line bg-surface px-3 py-1.5 text-sm font-medium transition duration-150 hover:-translate-y-px hover:border-signal hover:text-signal active:translate-y-0 disabled:cursor-not-allowed disabled:opacity-50 disabled:hover:translate-y-0 disabled:hover:border-line disabled:hover:text-ink; }
+  .btn-primary { @apply border-signal bg-signal text-surface hover:text-surface hover:brightness-110; }
+  .chip { @apply rounded-full border border-line bg-surface px-3 py-1 text-sm transition duration-150 hover:border-signal hover:text-signal; }
+  .chip[aria-pressed='true'] { @apply border-signal bg-signal text-surface hover:text-surface; }
+}
+@media (prefers-reduced-motion: reduce) { * { animation: none !important; transition: none !important; } }
+@keyframes rise { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: none; } }
+.rise { animation: rise .4s ease-out both; }
